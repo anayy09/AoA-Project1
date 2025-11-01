@@ -1,10 +1,6 @@
 # COT5405 - Analysis of Algorithms
 ## Project 1: Greedy and Divide & Conquer Algorithms
 
-**Student:** Sinha  
-**Date:** October 31, 2025  
-**Institution:** University of Florida
-
 ---
 
 ## Table of Contents
