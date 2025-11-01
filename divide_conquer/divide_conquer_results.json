@@ -1,0 +1,510 @@
+{
+  "algorithm": "Divide and Conquer Valley Finding",
+  "complexity": "O(n)",
+  "experiments": [
+    {
+      "input_size": 100,
+      "trials": [
+        {
+          "trial": 1,
+          "histogram_size": 100,
+          "valley_index": 0,
+          "valley_value": 22,
+          "dc_execution_time_ms": 0.06990000838413835,
+          "bf_execution_time_ms": 0.009099981980398297,
+          "speedup": 0.13018570656514053,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 2,
+          "histogram_size": 100,
+          "valley_index": 0,
+          "valley_value": 19,
+          "dc_execution_time_ms": 0.0633999879937619,
+          "bf_execution_time_ms": 0.007199996616691351,
+          "speedup": 0.11356463691128425,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 3,
+          "histogram_size": 100,
+          "valley_index": 0,
+          "valley_value": 19,
+          "dc_execution_time_ms": 0.05679999594576657,
+          "bf_execution_time_ms": 0.008700008038431406,
+          "speedup": 0.15316916653899582,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 4,
+          "histogram_size": 100,
+          "valley_index": 0,
+          "valley_value": 21,
+          "dc_execution_time_ms": 0.0585000088904053,
+          "bf_execution_time_ms": 0.008899980457499623,
+          "speedup": 0.15213639495633183,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 5,
+          "histogram_size": 100,
+          "valley_index": 0,
+          "valley_value": 20,
+          "dc_execution_time_ms": 0.05780000356025994,
+          "bf_execution_time_ms": 0.008299975888803601,
+          "speedup": 0.14359818992312662,
+          "valid": true,
+          "matches_bruteforce": true
+        }
+      ],
+      "average_dc_time_ms": 0.06128000095486641,
+      "average_bf_time_ms": 0.008439988596364856,
+      "average_speedup": 0.1385308189789758
+    },
+    {
+      "input_size": 500,
+      "trials": [
+        {
+          "trial": 1,
+          "histogram_size": 500,
+          "valley_index": 498,
+          "valley_value": 20,
+          "dc_execution_time_ms": 0.4276999970898032,
+          "bf_execution_time_ms": 0.03950000973418355,
+          "speedup": 0.09235447744436112,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 2,
+          "histogram_size": 500,
+          "valley_index": 499,
+          "valley_value": 20,
+          "dc_execution_time_ms": 0.19609997980296612,
+          "bf_execution_time_ms": 0.022199994418770075,
+          "speedup": 0.11320753036831413,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 3,
+          "histogram_size": 500,
+          "valley_index": 2,
+          "valley_value": 20,
+          "dc_execution_time_ms": 0.2114000089932233,
+          "bf_execution_time_ms": 0.03480000304989517,
+          "speedup": 0.16461684753764946,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 4,
+          "histogram_size": 500,
+          "valley_index": 0,
+          "valley_value": 20,
+          "dc_execution_time_ms": 0.20069998572580516,
+          "bf_execution_time_ms": 0.03259998629800975,
+          "speedup": 0.16243143306720317,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 5,
+          "histogram_size": 500,
+          "valley_index": 0,
+          "valley_value": 20,
+          "dc_execution_time_ms": 0.24589998065494,
+          "bf_execution_time_ms": 0.02449998282827437,
+          "speedup": 0.09963393556607901,
+          "valid": true,
+          "matches_bruteforce": true
+        }
+      ],
+      "average_dc_time_ms": 0.25635999045334756,
+      "average_bf_time_ms": 0.030719995265826583,
+      "average_speedup": 0.1264488447967214
+    },
+    {
+      "input_size": 1000,
+      "trials": [
+        {
+          "trial": 1,
+          "histogram_size": 1000,
+          "valley_index": 2,
+          "valley_value": 21,
+          "dc_execution_time_ms": 0.7839000027161092,
+          "bf_execution_time_ms": 0.11370002175681293,
+          "speedup": 0.14504403796767124,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 2,
+          "histogram_size": 1000,
+          "valley_index": 2,
+          "valley_value": 20,
+          "dc_execution_time_ms": 0.3941000031773001,
+          "bf_execution_time_ms": 0.04320000880397856,
+          "speedup": 0.10961686997130898,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 3,
+          "histogram_size": 1000,
+          "valley_index": 0,
+          "valley_value": 20,
+          "dc_execution_time_ms": 0.43089999235235155,
+          "bf_execution_time_ms": 0.046999979531392455,
+          "speedup": 0.10907398553156637,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 4,
+          "histogram_size": 1000,
+          "valley_index": 999,
+          "valley_value": 19,
+          "dc_execution_time_ms": 0.4437000025063753,
+          "bf_execution_time_ms": 0.04730001091957092,
+          "speedup": 0.1066035849726895,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 5,
+          "histogram_size": 1000,
+          "valley_index": 0,
+          "valley_value": 20,
+          "dc_execution_time_ms": 0.4845999937970191,
+          "bf_execution_time_ms": 0.04379998426884413,
+          "speedup": 0.09038379040341117,
+          "valid": true,
+          "matches_bruteforce": true
+        }
+      ],
+      "average_dc_time_ms": 0.507439998909831,
+      "average_bf_time_ms": 0.0590000010561198,
+      "average_speedup": 0.11214445376932947
+    },
+    {
+      "input_size": 5000,
+      "trials": [
+        {
+          "trial": 1,
+          "histogram_size": 5000,
+          "valley_index": 2,
+          "valley_value": 20,
+          "dc_execution_time_ms": 1.6911000129766762,
+          "bf_execution_time_ms": 0.22100002388469875,
+          "speedup": 0.1306841831877786,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 2,
+          "histogram_size": 5000,
+          "valley_index": 0,
+          "valley_value": 19,
+          "dc_execution_time_ms": 1.8248000124003738,
+          "bf_execution_time_ms": 0.23499998496845365,
+          "speedup": 0.12878122718737303,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 3,
+          "histogram_size": 5000,
+          "valley_index": 7,
+          "valley_value": 19,
+          "dc_execution_time_ms": 1.78089999826625,
+          "bf_execution_time_ms": 0.22560000070370734,
+          "speedup": 0.12667752311939723,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 4,
+          "histogram_size": 5000,
+          "valley_index": 4995,
+          "valley_value": 19,
+          "dc_execution_time_ms": 1.6821000026538968,
+          "bf_execution_time_ms": 0.22009998792782426,
+          "speedup": 0.13084833694819945,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 5,
+          "histogram_size": 5000,
+          "valley_index": 4,
+          "valley_value": 19,
+          "dc_execution_time_ms": 1.7742000054568052,
+          "bf_execution_time_ms": 0.22909999825060368,
+          "speedup": 0.12912861996729452,
+          "valid": true,
+          "matches_bruteforce": true
+        }
+      ],
+      "average_dc_time_ms": 1.7506200063508004,
+      "average_bf_time_ms": 0.22615999914705753,
+      "average_speedup": 0.12922397808200856
+    },
+    {
+      "input_size": 10000,
+      "trials": [
+        {
+          "trial": 1,
+          "histogram_size": 10000,
+          "valley_index": 9984,
+          "valley_value": 19,
+          "dc_execution_time_ms": 3.5862000077031553,
+          "bf_execution_time_ms": 0.43349998304620385,
+          "speedup": 0.1208800351667632,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 2,
+          "histogram_size": 10000,
+          "valley_index": 7,
+          "valley_value": 19,
+          "dc_execution_time_ms": 2.985300001455471,
+          "bf_execution_time_ms": 0.6510999810416251,
+          "speedup": 0.21810202683957525,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 3,
+          "histogram_size": 10000,
+          "valley_index": 4,
+          "valley_value": 19,
+          "dc_execution_time_ms": 3.488699992885813,
+          "bf_execution_time_ms": 0.4555000050459057,
+          "speedup": 0.13056439532627204,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 4,
+          "histogram_size": 10000,
+          "valley_index": 0,
+          "valley_value": 19,
+          "dc_execution_time_ms": 3.417800005991012,
+          "bf_execution_time_ms": 0.4126999992877245,
+          "speedup": 0.12075018976075506,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 5,
+          "histogram_size": 10000,
+          "valley_index": 2,
+          "valley_value": 19,
+          "dc_execution_time_ms": 3.144600021187216,
+          "bf_execution_time_ms": 0.3831000067293644,
+          "speedup": 0.12182789675894246,
+          "valid": true,
+          "matches_bruteforce": true
+        }
+      ],
+      "average_dc_time_ms": 3.3245200058445334,
+      "average_bf_time_ms": 0.4671799950301647,
+      "average_speedup": 0.1424249087704616
+    },
+    {
+      "input_size": 20000,
+      "trials": [
+        {
+          "trial": 1,
+          "histogram_size": 20000,
+          "valley_index": 25,
+          "valley_value": 19,
+          "dc_execution_time_ms": 8.399999991524965,
+          "bf_execution_time_ms": 0.8174000249709934,
+          "speedup": 0.0973095268804399,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 2,
+          "histogram_size": 20000,
+          "valley_index": 4,
+          "valley_value": 19,
+          "dc_execution_time_ms": 6.469299987656996,
+          "bf_execution_time_ms": 0.7776999846100807,
+          "speedup": 0.12021393135175085,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 3,
+          "histogram_size": 20000,
+          "valley_index": 2,
+          "valley_value": 19,
+          "dc_execution_time_ms": 9.822199994232506,
+          "bf_execution_time_ms": 1.076199987437576,
+          "speedup": 0.1095681199801989,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 4,
+          "histogram_size": 20000,
+          "valley_index": 6,
+          "valley_value": 19,
+          "dc_execution_time_ms": 9.545099979732186,
+          "bf_execution_time_ms": 1.0557000059634447,
+          "speedup": 0.11060125176321782,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 5,
+          "histogram_size": 20000,
+          "valley_index": 1,
+          "valley_value": 19,
+          "dc_execution_time_ms": 9.82750000548549,
+          "bf_execution_time_ms": 1.2701999803539366,
+          "speedup": 0.12924955274942146,
+          "valid": true,
+          "matches_bruteforce": true
+        }
+      ],
+      "average_dc_time_ms": 8.812819991726428,
+      "average_bf_time_ms": 0.9994399966672063,
+      "average_speedup": 0.11338847654500579
+    },
+    {
+      "input_size": 50000,
+      "trials": [
+        {
+          "trial": 1,
+          "histogram_size": 50000,
+          "valley_index": 25,
+          "valley_value": 19,
+          "dc_execution_time_ms": 24.378700007218868,
+          "bf_execution_time_ms": 3.200699982699007,
+          "speedup": 0.13129083920599685,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 2,
+          "histogram_size": 50000,
+          "valley_index": 1,
+          "valley_value": 19,
+          "dc_execution_time_ms": 25.359699997352436,
+          "bf_execution_time_ms": 4.798700014362112,
+          "speedup": 0.18922542517707616,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 3,
+          "histogram_size": 50000,
+          "valley_index": 0,
+          "valley_value": 19,
+          "dc_execution_time_ms": 23.635199991986156,
+          "bf_execution_time_ms": 2.760400006081909,
+          "speedup": 0.11679190389833219,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 4,
+          "histogram_size": 50000,
+          "valley_index": 2,
+          "valley_value": 19,
+          "dc_execution_time_ms": 22.244099993258715,
+          "bf_execution_time_ms": 3.898399998433888,
+          "speedup": 0.17525546098135394,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 5,
+          "histogram_size": 50000,
+          "valley_index": 0,
+          "valley_value": 19,
+          "dc_execution_time_ms": 18.584700010251254,
+          "bf_execution_time_ms": 3.4827999770641327,
+          "speedup": 0.18740146330815308,
+          "valid": true,
+          "matches_bruteforce": true
+        }
+      ],
+      "average_dc_time_ms": 22.840480000013486,
+      "average_bf_time_ms": 3.6281999957282096,
+      "average_speedup": 0.15999301851418243
+    },
+    {
+      "input_size": 100000,
+      "trials": [
+        {
+          "trial": 1,
+          "histogram_size": 100000,
+          "valley_index": 25,
+          "valley_value": 19,
+          "dc_execution_time_ms": 38.67989999707788,
+          "bf_execution_time_ms": 5.718700005672872,
+          "speedup": 0.14784681465321517,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 2,
+          "histogram_size": 100000,
+          "valley_index": 0,
+          "valley_value": 19,
+          "dc_execution_time_ms": 35.19220001180656,
+          "bf_execution_time_ms": 5.259300000034273,
+          "speedup": 0.14944504743294937,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 3,
+          "histogram_size": 100000,
+          "valley_index": 0,
+          "valley_value": 19,
+          "dc_execution_time_ms": 35.50219998578541,
+          "bf_execution_time_ms": 5.469600000651553,
+          "speedup": 0.15406369190758618,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 4,
+          "histogram_size": 100000,
+          "valley_index": 4,
+          "valley_value": 19,
+          "dc_execution_time_ms": 35.09040002245456,
+          "bf_execution_time_ms": 6.39019999653101,
+          "speedup": 0.1821067868260801,
+          "valid": true,
+          "matches_bruteforce": true
+        },
+        {
+          "trial": 5,
+          "histogram_size": 100000,
+          "valley_index": 0,
+          "valley_value": 19,
+          "dc_execution_time_ms": 34.13670000736602,
+          "bf_execution_time_ms": 5.623000004561618,
+          "speedup": 0.16472008141818884,
+          "valid": true,
+          "matches_bruteforce": true
+        }
+      ],
+      "average_dc_time_ms": 35.720280004898086,
+      "average_bf_time_ms": 5.692160001490265,
+      "average_speedup": 0.15963648444760392
+    }
+  ]
+}
