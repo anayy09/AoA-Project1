@@ -1,0 +1,390 @@
+{
+  "algorithm": "Greedy Packet Scheduling",
+  "complexity": "O(n log n)",
+  "experiments": [
+    {
+      "input_size": 10,
+      "trials": [
+        {
+          "trial": 1,
+          "total_packets": 10,
+          "scheduled_packets": 5,
+          "total_priority": 349,
+          "execution_time_ms": 0.01409999094903469,
+          "valid": true
+        },
+        {
+          "trial": 2,
+          "total_packets": 10,
+          "scheduled_packets": 4,
+          "total_priority": 231,
+          "execution_time_ms": 0.006300018867477775,
+          "valid": true
+        },
+        {
+          "trial": 3,
+          "total_packets": 10,
+          "scheduled_packets": 4,
+          "total_priority": 285,
+          "execution_time_ms": 0.005600013537332416,
+          "valid": true
+        },
+        {
+          "trial": 4,
+          "total_packets": 10,
+          "scheduled_packets": 4,
+          "total_priority": 220,
+          "execution_time_ms": 0.005399982910603285,
+          "valid": true
+        },
+        {
+          "trial": 5,
+          "total_packets": 10,
+          "scheduled_packets": 4,
+          "total_priority": 286,
+          "execution_time_ms": 0.005499983672052622,
+          "valid": true
+        }
+      ],
+      "average_execution_time_ms": 0.0073799979873001575,
+      "average_scheduled_packets": 4.2,
+      "average_total_priority": 274.2
+    },
+    {
+      "input_size": 50,
+      "trials": [
+        {
+          "trial": 1,
+          "total_packets": 50,
+          "scheduled_packets": 23,
+          "total_priority": 1397,
+          "execution_time_ms": 0.02910001785494387,
+          "valid": true
+        },
+        {
+          "trial": 2,
+          "total_packets": 50,
+          "scheduled_packets": 19,
+          "total_priority": 1327,
+          "execution_time_ms": 0.02680000034160912,
+          "valid": true
+        },
+        {
+          "trial": 3,
+          "total_packets": 50,
+          "scheduled_packets": 22,
+          "total_priority": 1340,
+          "execution_time_ms": 0.02549999044276774,
+          "valid": true
+        },
+        {
+          "trial": 4,
+          "total_packets": 50,
+          "scheduled_packets": 23,
+          "total_priority": 1401,
+          "execution_time_ms": 0.025599991204217076,
+          "valid": true
+        },
+        {
+          "trial": 5,
+          "total_packets": 50,
+          "scheduled_packets": 27,
+          "total_priority": 1643,
+          "execution_time_ms": 0.02500001573935151,
+          "valid": true
+        }
+      ],
+      "average_execution_time_ms": 0.026400003116577864,
+      "average_scheduled_packets": 22.8,
+      "average_total_priority": 1421.6
+    },
+    {
+      "input_size": 100,
+      "trials": [
+        {
+          "trial": 1,
+          "total_packets": 100,
+          "scheduled_packets": 46,
+          "total_priority": 2972,
+          "execution_time_ms": 0.06150000263005495,
+          "valid": true
+        },
+        {
+          "trial": 2,
+          "total_packets": 100,
+          "scheduled_packets": 48,
+          "total_priority": 2996,
+          "execution_time_ms": 0.05360000068321824,
+          "valid": true
+        },
+        {
+          "trial": 3,
+          "total_packets": 100,
+          "scheduled_packets": 48,
+          "total_priority": 3373,
+          "execution_time_ms": 0.0509000092279166,
+          "valid": true
+        },
+        {
+          "trial": 4,
+          "total_packets": 100,
+          "scheduled_packets": 42,
+          "total_priority": 2298,
+          "execution_time_ms": 0.04959999932907522,
+          "valid": true
+        },
+        {
+          "trial": 5,
+          "total_packets": 100,
+          "scheduled_packets": 40,
+          "total_priority": 2633,
+          "execution_time_ms": 0.08999998681247234,
+          "valid": true
+        }
+      ],
+      "average_execution_time_ms": 0.06111999973654747,
+      "average_scheduled_packets": 44.8,
+      "average_total_priority": 2854.4
+    },
+    {
+      "input_size": 500,
+      "trials": [
+        {
+          "trial": 1,
+          "total_packets": 500,
+          "scheduled_packets": 232,
+          "total_priority": 14863,
+          "execution_time_ms": 0.38380001205950975,
+          "valid": true
+        },
+        {
+          "trial": 2,
+          "total_packets": 500,
+          "scheduled_packets": 222,
+          "total_priority": 14859,
+          "execution_time_ms": 0.3163000219501555,
+          "valid": true
+        },
+        {
+          "trial": 3,
+          "total_packets": 500,
+          "scheduled_packets": 233,
+          "total_priority": 14289,
+          "execution_time_ms": 0.3962000191677362,
+          "valid": true
+        },
+        {
+          "trial": 4,
+          "total_packets": 500,
+          "scheduled_packets": 221,
+          "total_priority": 14629,
+          "execution_time_ms": 0.3589999978430569,
+          "valid": true
+        },
+        {
+          "trial": 5,
+          "total_packets": 500,
+          "scheduled_packets": 212,
+          "total_priority": 13808,
+          "execution_time_ms": 0.3515999997034669,
+          "valid": true
+        }
+      ],
+      "average_execution_time_ms": 0.36138001014478505,
+      "average_scheduled_packets": 224.0,
+      "average_total_priority": 14489.6
+    },
+    {
+      "input_size": 1000,
+      "trials": [
+        {
+          "trial": 1,
+          "total_packets": 1000,
+          "scheduled_packets": 460,
+          "total_priority": 29100,
+          "execution_time_ms": 0.6714999908581376,
+          "valid": true
+        },
+        {
+          "trial": 2,
+          "total_packets": 1000,
+          "scheduled_packets": 462,
+          "total_priority": 28893,
+          "execution_time_ms": 1.028400001814589,
+          "valid": true
+        },
+        {
+          "trial": 3,
+          "total_packets": 1000,
+          "scheduled_packets": 440,
+          "total_priority": 28501,
+          "execution_time_ms": 0.7155000057537109,
+          "valid": true
+        },
+        {
+          "trial": 4,
+          "total_packets": 1000,
+          "scheduled_packets": 444,
+          "total_priority": 28007,
+          "execution_time_ms": 0.7167999865487218,
+          "valid": true
+        },
+        {
+          "trial": 5,
+          "total_packets": 1000,
+          "scheduled_packets": 455,
+          "total_priority": 28214,
+          "execution_time_ms": 0.7155000057537109,
+          "valid": true
+        }
+      ],
+      "average_execution_time_ms": 0.769539998145774,
+      "average_scheduled_packets": 452.2,
+      "average_total_priority": 28543.0
+    },
+    {
+      "input_size": 2000,
+      "trials": [
+        {
+          "trial": 1,
+          "total_packets": 2000,
+          "scheduled_packets": 919,
+          "total_priority": 59312,
+          "execution_time_ms": 1.6132000018842518,
+          "valid": true
+        },
+        {
+          "trial": 2,
+          "total_packets": 2000,
+          "scheduled_packets": 886,
+          "total_priority": 56495,
+          "execution_time_ms": 2.2487000096589327,
+          "valid": true
+        },
+        {
+          "trial": 3,
+          "total_packets": 2000,
+          "scheduled_packets": 929,
+          "total_priority": 57165,
+          "execution_time_ms": 1.590500003658235,
+          "valid": true
+        },
+        {
+          "trial": 4,
+          "total_packets": 2000,
+          "scheduled_packets": 896,
+          "total_priority": 56365,
+          "execution_time_ms": 1.9303000008221716,
+          "valid": true
+        },
+        {
+          "trial": 5,
+          "total_packets": 2000,
+          "scheduled_packets": 893,
+          "total_priority": 56363,
+          "execution_time_ms": 2.0215999975334853,
+          "valid": true
+        }
+      ],
+      "average_execution_time_ms": 1.8808600027114153,
+      "average_scheduled_packets": 904.6,
+      "average_total_priority": 57140.0
+    },
+    {
+      "input_size": 5000,
+      "trials": [
+        {
+          "trial": 1,
+          "total_packets": 5000,
+          "scheduled_packets": 2240,
+          "total_priority": 142851,
+          "execution_time_ms": 6.231199979083613,
+          "valid": true
+        },
+        {
+          "trial": 2,
+          "total_packets": 5000,
+          "scheduled_packets": 2254,
+          "total_priority": 143883,
+          "execution_time_ms": 5.2220000070519745,
+          "valid": true
+        },
+        {
+          "trial": 3,
+          "total_packets": 5000,
+          "scheduled_packets": 2257,
+          "total_priority": 145122,
+          "execution_time_ms": 6.681200000457466,
+          "valid": true
+        },
+        {
+          "trial": 4,
+          "total_packets": 5000,
+          "scheduled_packets": 2264,
+          "total_priority": 143875,
+          "execution_time_ms": 5.716699990443885,
+          "valid": true
+        },
+        {
+          "trial": 5,
+          "total_packets": 5000,
+          "scheduled_packets": 2292,
+          "total_priority": 144108,
+          "execution_time_ms": 6.832599989138544,
+          "valid": true
+        }
+      ],
+      "average_execution_time_ms": 6.136739993235096,
+      "average_scheduled_packets": 2261.4,
+      "average_total_priority": 143967.8
+    },
+    {
+      "input_size": 10000,
+      "trials": [
+        {
+          "trial": 1,
+          "total_packets": 10000,
+          "scheduled_packets": 4491,
+          "total_priority": 285942,
+          "execution_time_ms": 13.922900019679219,
+          "valid": true
+        },
+        {
+          "trial": 2,
+          "total_packets": 10000,
+          "scheduled_packets": 4497,
+          "total_priority": 290304,
+          "execution_time_ms": 14.028299978235736,
+          "valid": true
+        },
+        {
+          "trial": 3,
+          "total_packets": 10000,
+          "scheduled_packets": 4578,
+          "total_priority": 288612,
+          "execution_time_ms": 19.662699982291088,
+          "valid": true
+        },
+        {
+          "trial": 4,
+          "total_packets": 10000,
+          "scheduled_packets": 4544,
+          "total_priority": 286595,
+          "execution_time_ms": 13.253599987365305,
+          "valid": true
+        },
+        {
+          "trial": 5,
+          "total_packets": 10000,
+          "scheduled_packets": 4496,
+          "total_priority": 289651,
+          "execution_time_ms": 14.94050002656877,
+          "valid": true
+        }
+      ],
+      "average_execution_time_ms": 15.161599998828024,
+      "average_scheduled_packets": 4521.2,
+      "average_total_priority": 288220.8
+    }
+  ]
+}
