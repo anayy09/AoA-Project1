@@ -1,21 +1,6 @@
-# COT5405 - Analysis of Algorithms
-## Project 1: Greedy and Divide & Conquer Algorithms
+## Greedy and Divide & Conquer Algorithms
 
----
-
-## Table of Contents
-
-1. [Executive Summary](#executive-summary)
-2. [Part 1: Greedy Algorithm - Network Packet Scheduling](#part-1-greedy-algorithm)
-3. [Part 2: Divide & Conquer - Medical Image Histogram Analysis](#part-2-divide-and-conquer-algorithm)
-4. [Experimental Results Comparison](#experimental-results-comparison)
-5. [Conclusions](#conclusions)
-6. [References](#references)
-7. [Appendix: Running the Code](#appendix)
-
----
-
-## Executive Summary
+## Summary
 
 This project presents two practical algorithmic solutions from different domains:
 
@@ -39,7 +24,7 @@ Both algorithms are implemented in Python, experimentally verified, and demonstr
 
 ### Network Packet Scheduling for Quality of Service
 
-#### 1. Real-World Problem (10 pts)
+#### 1. Real-World Problem
 
 **Domain:** Telecommunications and Network Infrastructure
 
@@ -58,7 +43,7 @@ When network congestion occurs, the router must intelligently select which packe
 - AWS and Azure cloud networking
 - 5G network slicing for IoT
 
-#### 2. Abstract Problem (5 pts)
+#### 2. Abstract Problem
 
 **Mathematical Formulation:**
 
@@ -73,7 +58,7 @@ Given a set of jobs J = {j₁, j₂, ..., jₙ} where each job jᵢ has:
 
 **Graph Representation:** Weighted interval scheduling on timeline
 
-#### 3. Algorithm Solution (10 pts)
+#### 3. Algorithm Solution
 
 ```python
 Algorithm: GreedyPacketScheduling(J)
@@ -89,7 +74,7 @@ Algorithm: GreedyPacketScheduling(J)
 
 **Key Insight:** Maximize "value per unit time" (priority density)
 
-#### 4. Time Complexity Analysis (5 pts)
+#### 4. Time Complexity Analysis
 
 - **Sorting Phase:** O(n log n) - dominant operation
 - **Selection Phase:** O(n) - single pass
@@ -98,7 +83,7 @@ Algorithm: GreedyPacketScheduling(J)
 
 **Recurrence:** Not applicable (sorting dominates)
 
-#### 5. Proof of Correctness (10 pts)
+#### 5. Proof of Correctness
 
 **Theorem:** The greedy algorithm produces an optimal solution.
 
@@ -115,7 +100,7 @@ Algorithm: GreedyPacketScheduling(J)
 - Repeat until O = G
 - Therefore, G is optimal ∎
 
-#### 6. Domain Explanation (5 pts)
+#### 6. Domain Explanation
 
 **For Network Engineers:**
 
@@ -135,7 +120,7 @@ Priority Classes:
 - Data: priority=40, max_latency=500ms
 ```
 
-#### 7. Experimental Verification (5 pts)
+#### 7. Experimental Verification
 
 **Setup:**
 - Input sizes: 10 to 10,000 packets
@@ -162,18 +147,13 @@ Priority Classes:
 
 ![Greedy Performance](greedy_algorithm/performance_graph.png)
 
-**Verification:**
-- ✓ All schedules valid (no deadline violations)
-- ✓ Performance matches O(n log n)
-- ✓ Consistent across trials
-
 ---
 
 ## Part 2: Divide and Conquer Algorithm
 
 ### Medical Image Histogram Analysis for Tumor Detection
 
-#### 1. Real-World Problem (10 pts)
+#### 1. Real-World Problem
 
 **Domain:** Medical Imaging and Computer-Aided Diagnosis
 
@@ -203,7 +183,7 @@ Finding the valley automatically enables:
 - Reduced analysis time (seconds vs minutes)
 - Objective, reproducible results
 
-#### 2. Abstract Problem (5 pts)
+#### 2. Abstract Problem
 
 **Mathematical Formulation:**
 
@@ -224,7 +204,7 @@ Given array H = [h₀, h₁, ..., h_{n-1}] where:
 - Vertex weight w(i) = hᵢ
 - Find minimum weight vertex
 
-#### 3. Algorithm Solution (10 pts)
+#### 3. Algorithm Solution
 
 ```python
 Algorithm: FindValleyDivideConquer(H, left, right)
@@ -247,7 +227,7 @@ Combine:
 - Exhaustive comparison through recursion
 - Logarithmic depth
 
-#### 4. Time Complexity Analysis (5 pts)
+#### 4. Time Complexity Analysis
 
 **Recurrence Relation:**
 ```
@@ -275,7 +255,7 @@ T(n) = 2T(n/2) + c
 
 **Space Complexity:** O(log n) for recursion stack
 
-#### 5. Proof of Correctness (10 pts)
+#### 5. Proof of Correctness
 
 **Theorem:** Algorithm correctly finds the minimum element.
 
@@ -298,7 +278,7 @@ T(n) = 2T(n/2) + c
 
 **Termination:** Each recursion halves problem size, eventually reaching base case ✓
 
-#### 6. Domain Explanation (5 pts)
+#### 6. Domain Explanation
 
 **For Radiologists and Medical Imaging Staff:**
 
@@ -387,11 +367,11 @@ For doubling input size (n → 2n):
 
 **Greedy Algorithm:**
 - Theoretical: 2 × log(2n)/log(n) ≈ 2.1×
-- Experimental: 2.13× average ✓
+- Experimental: 2.13× average
 
 **Divide & Conquer:**
 - Theoretical: 2.0×
-- Experimental: 1.9× average ✓
+- Experimental: 1.9× average
 
 Both algorithms show strong correlation between theory and practice.
 
@@ -410,235 +390,3 @@ Both algorithms show strong correlation between theory and practice.
    - Excellent cache locality
 
 ---
-
-## Conclusions
-
-### Key Achievements
-
-1. **Problem Selection:**
-   - ✓ Two unique, practical problems from different domains
-   - ✓ Network QoS (telecommunications)
-   - ✓ Medical imaging (healthcare)
-   - ✓ Both have real industry applications
-
-2. **Theoretical Analysis:**
-   - ✓ Complete mathematical abstractions (sets, graphs)
-   - ✓ Detailed algorithms with pseudocode
-   - ✓ Rigorous time complexity analysis
-   - ✓ Formal proofs of correctness
-
-3. **Implementation:**
-   - ✓ Full Python implementations
-   - ✓ Comprehensive test suites
-   - ✓ Experimental validation
-   - ✓ Performance visualization
-
-4. **Experimental Validation:**
-   - ✓ Multiple input sizes tested
-   - ✓ Statistical averaging (5 trials each)
-   - ✓ Strong correlation with theory
-   - ✓ Generated graphs and JSON data
-
-### Technical Insights
-
-**Greedy Algorithm Strengths:**
-- Local optimization leads to global optimum (when applicable)
-- Efficient for scheduling problems with density-based metrics
-- Proven optimal for this class of problems
-
-**Divide & Conquer Strengths:**
-- Natural recursive structure
-- Logarithmic space usage
-- Clear proof by induction
-- Excellent for problems with optimal substructure
-
-### Real-World Impact
-
-**Network Packet Scheduling:**
-- Deployed in Cisco, Juniper routers
-- Enables QoS guarantees
-- Critical for IoT, 5G networks
-- Prevents packet starvation
-
-**Medical Image Analysis:**
-- Speeds diagnosis (seconds vs minutes)
-- Improves consistency across radiologists
-- Enables large-scale screening programs
-- Supports AI-assisted diagnosis
-
-### Learning Outcomes
-
-1. **Algorithm Design:**
-   - Matching problem characteristics to algorithmic paradigms
-   - Recognizing when greedy choice is optimal
-   - Identifying optimal substructure for D&C
-
-2. **Analysis Techniques:**
-   - Master Theorem application
-   - Exchange arguments for greedy correctness
-   - Inductive proofs for recursive algorithms
-
-3. **Implementation Skills:**
-   - Translating algorithms to clean code
-   - Designing effective experiments
-   - Validating theoretical predictions
-
-### Future Extensions
-
-**Network Packet Scheduling:**
-- Dynamic priority adjustments
-- Multi-path routing integration
-- Machine learning for priority prediction
-
-**Histogram Analysis:**
-- Multi-valley detection (multiple thresholds)
-- Noise-robust variants
-- Extension to 3D medical images
-
----
-
-## References
-
-### Greedy Algorithm
-
-1. **Textbooks:**
-   - Cormen, T. H., et al. "Introduction to Algorithms" (4th ed.), Chapter 16: Greedy Algorithms
-   - Kleinberg, J., & Tardos, É. "Algorithm Design" (2005), Chapter 4: Greedy Algorithms
-
-2. **Research Papers:**
-   - Horn, W. A. "Some simple scheduling algorithms" (Naval Research Logistics, 1974)
-   - Liu, C. L., & Layland, J. W. "Scheduling algorithms for multiprogramming in a hard-real-time environment" (JACM, 1973)
-
-3. **Industry Standards:**
-   - RFC 2475: "An Architecture for Differentiated Services"
-   - IEEE 802.1Q: "Virtual Bridged Local Area Networks - QoS"
-
-### Divide and Conquer Algorithm
-
-1. **Textbooks:**
-   - Cormen, T. H., et al. "Introduction to Algorithms" (4th ed.), Chapter 4: Divide-and-Conquer
-   - Skiena, S. S. "The Algorithm Design Manual" (3rd ed.), Chapter 4: Sorting
-
-2. **Medical Imaging:**
-   - Gonzalez, R. C., & Woods, R. E. "Digital Image Processing" (4th ed.)
-   - Otsu, N. "A threshold selection method from gray-level histograms" (IEEE Trans, 1979)
-
-3. **Clinical Applications:**
-   - Doi, K. "Computer-aided diagnosis in medical imaging" (Computerized Medical Imaging, 2007)
-   - Suzuki, K. "Machine Learning in Computer-Aided Diagnosis" (2012)
-
----
-
-## Appendix: Running the Code
-
-### Prerequisites
-
-```bash
-# Python 3.8 or higher
-python --version
-
-# Install required packages
-pip install matplotlib numpy
-```
-
-### Project Structure
-
-```
-AoA-Project1/
-├── greedy_algorithm/
-│   ├── packet_scheduling.py      # Main implementation
-│   ├── greedy_results.json       # Experimental data
-│   ├── performance_graph.png     # Visualization
-│   ├── growth_rate.png          # Growth analysis
-│   └── REPORT.md                # Detailed report
-├── divide_conquer/
-│   ├── histogram_analysis.py    # Main implementation
-│   ├── divide_conquer_results.json  # Experimental data
-│   ├── performance_graph.png    # Visualization
-│   ├── algorithm_comparison.png # Comparison graph
-│   ├── growth_rate.png         # Growth analysis
-│   └── REPORT.md               # Detailed report
-├── visualize_results.py        # Graph generation
-└── README.md                   # This file
-```
-
-### Running the Experiments
-
-**1. Run Greedy Algorithm:**
-```bash
-cd greedy_algorithm
-python packet_scheduling.py
-```
-
-Expected output:
-- Demonstration with small example
-- Experimental results for sizes 10-10,000
-- JSON file with complete data
-- Execution time < 30 seconds
-
-**2. Run Divide & Conquer Algorithm:**
-```bash
-cd divide_conquer
-python histogram_analysis.py
-```
-
-Expected output:
-- Demonstration with histogram visualization
-- Experimental results for sizes 100-100,000
-- JSON file with complete data
-- Comparison with brute force
-- Execution time < 60 seconds
-
-**3. Generate Visualizations:**
-```bash
-# From project root
-python visualize_results.py
-```
-
-Generates:
-- Performance graphs
-- Growth rate analyses
-- Algorithm comparisons
-- PNG files in respective directories
-
-### Interpreting Results
-
-**JSON Files:**
-- `experiments`: Array of test results per input size
-- `trials`: Individual trial data
-- `average_*`: Statistical averages across trials
-
-**Graphs:**
-- Blue line: Experimental data
-- Red dashed: Theoretical prediction
-- Should show close alignment
-
-### Customizing Experiments
-
-Modify test parameters in Python files:
-
-```python
-# Change input sizes
-sizes = [10, 50, 100, 500, 1000]
-
-# Change number of trials
-trials = 10
-
-# Change problem parameters
-max_deadline = 2 * n  # for packet scheduling
-num_peaks = 3         # for histogram analysis
-```
-
----
-
-## Acknowledgments
-
-This project demonstrates practical applications of classic algorithmic techniques in real-world domains. The implementations prioritize clarity and correctness while maintaining competitive performance.
-
-**Course:** COT5405 - Analysis of Algorithms  
-**Institution:** University of Florida  
-**Semester:** Fall 2025
-
----
-
-*End of Report*
