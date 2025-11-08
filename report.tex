@@ -26,17 +26,26 @@
     basicstyle=\ttfamily\small,
     breaklines=true,
     frame=single,
-    numbers=left,
-    numberstyle=\tiny,
+    numbers=none,
     captionpos=b,
-    language=Python
+    keywords={False, None, True, and, as, assert, async, await, break, class, continue, def, del, elif, else, except, finally, for, from, global, if, import, in, is, lambda, nonlocal, not, or, pass, raise, return, try, while, with, yield},
+    keywordstyle=\color{blue}\bfseries,
+    ndkeywords={self, cls, __init__, __str__, __repr__, __len__},
+    ndkeywordstyle=\color{purple}\bfseries,
+    comment=[l]{\#},
+    morecomment=[s]{"""}{"""},
+    morecomment=[s]{'''}{'''},
+    morestring=[b]',
+    morestring=[b]",
+    rulecolor=\color{black!30},
+    showstringspaces=false,
+    language=python
 }
 
 % Define JSON language for listings
 \lstdefinelanguage{json}{
     basicstyle=\ttfamily\small,
-    numbers=left,
-    numberstyle=\tiny,
+    numbers=none,
     stepnumber=1,
     numbersep=8pt,
     showstringspaces=false,
@@ -638,14 +647,17 @@ This project utilized Large Language Models (LLMs). Complete disclosure follows:
 
 \textit{Result:} The LLM converted the documentation to IEEE conference paper format with proper sections, mathematical notation, algorithm pseudocode, and bibliography.
 
+
 \section{Source Code}
 \label{appendix:code}
+
+The complete source code is available at: \href{https://github.com/anayy09/AoA-Project1}{Github}
 
 % \onecolumn
 
 \subsection{Greedy Packet Scheduling Implementation}
 
-\begin{lstlisting}[language=gleam, caption={Greedy packet scheduling algorithm implementation}, label={lst:greedy}]
+\begin{lstlisting}[language=python, caption={Greedy packet scheduling algorithm implementation}, label={lst:greedy}]
 import time
 import json
 from typing import List, Tuple
@@ -731,7 +743,7 @@ def run_experiments(sizes: List[int], trials: int = 5):
 
 \subsection{Divide-and-Conquer Histogram Analysis}
 
-\begin{lstlisting}[language=gleam, caption={Divide-and-conquer valley finding implementation}, label={lst:divide}]
+\begin{lstlisting}[language=python, caption={Divide-and-conquer valley finding implementation}, label={lst:divide}]
 import time
 from typing import List, Tuple
 
@@ -827,7 +839,7 @@ def run_experiments(sizes: List[int], trials: int = 5):
 
 \subsection{Experimental Data Generation}
 
-\begin{lstlisting}[language=gleam, caption={Test data generation functions}, label={lst:datagen}]
+\begin{lstlisting}[language=python, caption={Test data generation functions}, label={lst:datagen}]
 import random
 import math
 
