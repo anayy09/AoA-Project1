@@ -111,7 +111,7 @@ Modern network infrastructure demands intelligent packet scheduling to maintain 
 This paper makes the following contributions:
 
 \begin{itemize}
-    \item An optimal greedy algorithm for unit-time packet scheduling running in O(n \log n) time with formal optimality proof via exchange argument
+    \item An optimal greedy algorithm for unit-time packet scheduling running in $O(n \log n)$ time with formal optimality proof via exchange argument
     \item A divide-and-conquer solution for medical image histogram analysis with correctness proof by strong induction
     \item Comprehensive time complexity analysis using Master Theorem and recurrence relations
     \item Extensive experimental validation across input sizes spanning three orders of magnitude
@@ -633,7 +633,7 @@ This project utilized Large Language Models (LLMs). Complete disclosure follows:
 
 \textit{Prompt 2:} ``The greedy algorithm must be provably optimal. The current density-based approach is not optimal for general weighted scheduling. Switch to unit-time scheduling with latest-slot assignment.''
 
-\textit{Result:} The LLM helped reformulate the problem to use the unit-time constraint ($t_i = 1$ for all jobs), which enables an optimal greedy solution via latest-slot assignment. This approach is provably optimal using an exchange argument, unlike the NP-hard general weighted scheduling problem.
+\textit{Result:} The LLM helped reformulate the problem to use the unit-time constraint ($t_i = 1$ for all jobs).
 
 
 \section{Source Code}
@@ -765,8 +765,7 @@ def run_experiments(sizes: List[int], trials: int = 5):
         }
         
         for trial in range(trials):
-            histogram = generate_histogram(n, num_peaks=3, 
-                                          seed=trial * n)
+            histogram = generate_histogram(n, num_peaks=3, seed=trial * n)
             
             idx_dc, val_dc, time_dc = 
                 find_valley_optimized(histogram)
