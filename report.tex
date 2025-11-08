@@ -91,7 +91,7 @@ Practical Applications of Greedy and Divide-and-Conquer Algorithms}
 \maketitle
 
 \begin{abstract}
-The present paper demonstrates practical applications of two fundamental algorithmic paradigms: greedy algorithms and divide-and-conquer techniques. We address a unit-time network packet scheduling problem with an optimal O(n²) greedy approach and analyze medical image histograms using divide-and-conquer methods with O(n) complexity. Both algorithms are rigorously analyzed, with formal correctness proofs and empirical validation through extensive experimentation. The unit-time constraint enables a provably optimal greedy solution, unlike the general weighted scheduling problem which is NP-hard. The network scheduling algorithm processes 10,000 packets in 28.90ms, while the histogram analysis handles 10,000 intensity levels in 3.32ms; both are suitable for real-time applications in telecommunications and medical imaging, respectively.
+The present paper demonstrates practical applications of two fundamental algorithmic paradigms: greedy algorithms and divide-and-conquer techniques. We address a unit-time network packet scheduling problem with an optimal greedy approach running in O(n log n) time and analyze medical image histograms using divide-and-conquer methods with O(n) complexity. Both algorithms are rigorously analyzed, with formal correctness proofs and empirical validation through extensive experimentation. The unit-time constraint enables a provably optimal greedy solution, unlike the general weighted scheduling problem which is NP-hard. The network scheduling algorithm processes 10,000 packets in 28.90ms, while the histogram analysis handles 10,000 intensity levels in 3.32ms; both are suitable for real-time applications in telecommunications and medical imaging, respectively.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -111,7 +111,7 @@ Modern network infrastructure demands intelligent packet scheduling to maintain 
 This paper makes the following contributions:
 
 \begin{itemize}
-    \item A greedy algorithm for network packet scheduling with formal optimality proof via exchange argument
+    \item An optimal greedy algorithm for unit-time packet scheduling running in O(n \log n) time with formal optimality proof via exchange argument
     \item A divide-and-conquer solution for medical image histogram analysis with correctness proof by strong induction
     \item Comprehensive time complexity analysis using Master Theorem and recurrence relations
     \item Extensive experimental validation across input sizes spanning three orders of magnitude
@@ -144,123 +144,77 @@ Suzuki \cite{suzuki2012machine} surveys machine learning in CAD systems. Doi \ci
 
 \subsubsection{Real-World Context}
 
-In Software-Defined Networking (SDN) and network control planes, fixed-size control packets arrive continuously with varying priorities and deadline constraints. Unlike variable-size data plane traffic, control packets are standardized (e.g., 64-byte Ethernet control frames, OpenFlow messages). A network controller must prioritize critical topology updates over routine statistics queries. When congestion occurs, the controller must decide which packets to transmit to maximize delivered value while meeting critical deadlines. The unit-time constraint (all packets require the same transmission time) is realistic for control plane traffic where message formats are standardized.
+In network routers, packets from different flows compete for limited transmission opportunities. Each packet has:
+(i) a deadline after which it is useless, and
+(ii) a priority reflecting QoS or revenue.
+Each time slot can transmit at most one packet. The question is which packets to send and when, so that no chosen packet misses its deadline and the total delivered priority is maximized.
 
 \subsubsection{Mathematical Abstraction}
 
 \begin{definition}
-Given a set of jobs $J = \{j_1, j_2, \ldots, j_n\}$ where each job $j_i$ has:
+Let $J = \{1,\dots,n\}$ be a set of packets. Each packet $i \in J$ has
 \begin{itemize}
-    \item $d_i \in \{1, 2, \ldots, n\}$: deadline (discrete time slot)
-    \item $p_i \in \mathbb{R}^+$: priority/value
-    \item $t_i = 1$: processing time (\textbf{UNIT-TIME}: all jobs take exactly 1 time unit)
+    \item deadline $d_i \in \mathbb{Z}_{\ge 1}$,
+    \item weight (priority) $w_i \in \mathbb{R}_{>0}$,
+    \item processing time $t_i = 1$.
 \end{itemize}
+Let $D = \max_i d_i$. A schedule assigns some packets to distinct integer slots $t \in \{1,\dots,D\}$ such that if packet $i$ is assigned to $t$ then $t \le d_i$. At most one packet per slot is allowed. The objective is
+\[
+\max \sum_{i \in S} w_i
+\]
+over all feasible subsets $S \subseteq J$ realizable by such a schedule.
 \end{definition}
 
-\noindent \textbf{Objective:} Find subset $S \subseteq J$ and assignment to time slots maximizing:
-\begin{equation}
-    \max \sum_{j_i \in S} p_i
-\end{equation}
+\subsection{Greedy Algorithm}
 
-\noindent \textbf{Subject to:} For each job $j_i \in S$ assigned to slot $t(j_i)$:
-\begin{equation}
-    t(j_i) \leq d_i \text{ and } t(j_i) \neq t(j_k) \text{ for all } j_k \in S, k \neq i
-\end{equation}
+\subsubsection{Idea}
 
-\subsection{Algorithm Design}
+Consider packets in descending order of priority. For each, place it as late as possible before its deadline, keeping earlier slots open for tighter constraints.
 
-\subsubsection{Greedy Strategy}
-
-The algorithm employs a latest-slot assignment strategy: process jobs in decreasing priority order, and assign each job to the \textbf{latest available time slot} that meets its deadline. This preserves earlier slots for lower-priority jobs that might have tighter deadline constraints. By scheduling high-priority jobs first and placing them as late as possible within their deadlines, we maximize scheduling flexibility for remaining jobs.
+\subsubsection{Algorithm}
 
 \begin{algorithm}
 \caption{Greedy Unit-Time Packet Scheduling}
 \label{alg:greedy}
 \begin{algorithmic}[1]
-\STATE \textbf{Input:} Set of unit-time jobs $J = \{j_1, \ldots, j_n\}$
-\STATE \textbf{Output:} Subset $S$ and total priority
-\STATE
-\STATE Sort $J$ by $p_i$ (descending priority)
-\STATE Let $d_{max} = \max\{d_i : j_i \in J\}$
-\STATE Initialize: $slot[t] \gets NULL$ for $t = 1, 2, \ldots, d_{max}$
-\STATE $S \gets \emptyset$, $total\_priority \gets 0$
-\FOR{each job $j_i$ in sorted order}
-    \STATE Find latest free slot $t$ where $1 \leq t \leq d_i$ and $slot[t] = NULL$
-    \IF{such slot $t$ exists}
-        \STATE $slot[t] \gets j_i$
-        \STATE $S \gets S \cup \{j_i\}$
-        \STATE $total\_priority \gets total\_priority + p_i$
+\STATE \textbf{Input:} Deadlines $d_i$, weights $w_i$, unit time $t_i = 1$
+\STATE \textbf{Output:} Schedule and total weight
+\STATE $D \gets \max_i d_i$
+\STATE Order packets so that $w_1 \ge w_2 \ge \dots \ge w_n$
+\STATE Initialize $slot[1..D] \gets \text{empty}$, $total\_w \gets 0$
+\FOR{$i = 1$ to $n$}
+    \STATE $t \gets \min(d_i, D)$
+    \WHILE{$t \ge 1$ and $slot[t]$ not empty}
+        \STATE $t \gets t - 1$
+    \ENDWHILE
+    \IF{$t \ge 1$}
+        \STATE $slot[t] \gets i$
+        \STATE $total\_w \gets total\_w + w_i$
     \ENDIF
 \ENDFOR
-\STATE \textbf{return} $(S, total\_priority)$
+\STATE \textbf{return} $slot$, $total\_w$
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Complexity Analysis}
+\subsection{Running Time Analysis}
 
-\subsubsection{Time Complexity}
+Sorting dominates with $O(n \log n)$ time. The slot search is $O(D)$ per packet in the simple version, or $O(\alpha(D))$ amortized with a disjoint-set structure, so the full algorithm runs in $O(n \log n)$ with Union-Find optimization. The naive implementation without Union-Find runs in $O(n^2)$ time due to the slot search loop.
 
-\begin{theorem}
-Algorithm~\ref{alg:greedy} runs in $O(n^2)$ time (naive implementation) or $O(n \log n)$ time with Union-Find optimization.
-\end{theorem}
-
-\begin{proof}
-The algorithm consists of three phases:
-\begin{enumerate}
-    \item \textbf{Sorting:} Comparison-based sorting of $n$ jobs by priority requires $O(n \log n)$ time.
-    \item \textbf{Slot initialization:} Allocating slot array of size $d_{max} \leq n$ requires $O(n)$ time.
-    \item \textbf{Greedy assignment:} For each of $n$ jobs:
-    \begin{itemize}
-        \item Search backwards from deadline to find free slot: worst case $O(d_{max}) = O(n)$
-        \item Total for all jobs: $O(n \cdot n) = O(n^2)$
-    \end{itemize}
-\end{enumerate}
-Total complexity: $T(n) = O(n \log n) + O(n) + O(n^2) = O(n^2)$.
-
-\textbf{Optimization:} Using a Disjoint Set Union (DSU) data structure with path compression, slot-finding becomes $O(\alpha(n))$ amortized per operation, reducing total complexity to $O(n \log n)$.
-\end{proof}
-
-\subsubsection{Space Complexity}
-
-The algorithm requires $O(n)$ space for storing the slot array and selected jobs set.
-
-\subsection{Correctness Proof}
+\subsection{Correctness}
 
 \begin{theorem}
-Algorithm~\ref{alg:greedy} produces an optimal solution for unit-time scheduling.
+Algorithm~\ref{alg:greedy} is optimal for the unit-time deadline scheduling problem.
 \end{theorem}
 
-\begin{proof}
-We prove optimality using an exchange argument. Let $G$ be the greedy solution and $O$ be any optimal solution.
+\begin{proof}[Proof sketch]
+Take any optimal schedule $O$. Process packets in non-increasing $w_i$. For packet $i$, the greedy puts it in the latest free slot $t_g \le d_i$.
 
-\textbf{Lemma 1 (Feasibility):} $G$ is feasible.
-
-By construction, each job $j_i \in G$ is assigned to a time slot $t \leq d_i$ (its deadline), and no two jobs share the same slot. Therefore, all constraints are satisfied.
-
-\textbf{Lemma 2 (Exchange Property):} If $G \neq O$, we can modify $O$ to include a job from $G$ without decreasing total priority.
-
-Suppose $G \neq O$. Let $j^*$ be the highest-priority job that appears in exactly one of $G$ or $O$.
-
-\textbf{Case 1:} $j^* \in G$ and $j^* \notin O$
-
-Since greedy scheduled $j^*$, there was a free slot $t \leq d_{j^*}$ available. Greedy processes jobs by decreasing priority, so all jobs processed before $j^*$ have priority $\geq p_{j^*}$.
-
-In $O$, since $j^*$ is not scheduled, all slots $\{1, 2, \ldots, d_{j^*}\}$ are occupied. Let $J_O$ be these jobs.
-
-\textit{Sub-case 1a:} If $\exists j' \in J_O$ with $p_{j'} < p_{j^*}$, replace $j'$ with $j^*$ in $O$. Since $j'$ occupies slot $t' \leq d_{j^*}$ and $t' \leq d_{j^*}$, job $j^*$ meets its deadline. Priority increases: $p_{j^*} > p_{j'}$, contradicting optimality of $O$.
-
-\textit{Sub-case 1b:} All jobs in $J_O$ have priority $\geq p_{j^*}$. These would all have been processed before $j^*$ by greedy, and greedy would have assigned them to slots. Since greedy did schedule $j^*$, this case cannot occur.
-
-\textbf{Case 2:} $j^* \in O$ and $j^* \notin G$
-
-Greedy did not schedule $j^*$ because all slots $\{1, \ldots, d_{j^*}\}$ were filled. Let $J_G$ be jobs in $G$ occupying these slots. Since greedy processes by priority, all jobs in $J_G$ have priority $> p_{j^*}$.
-
-If $\exists j' \in J_G$ with $j' \notin O$: Since $p_{j'} > p_{j^*}$, replace $j^*$ with $j'$ in $O$. Job $j'$ can be placed in some valid slot (feasibility argument similar to Case 1). Priority increases, contradicting optimality of $O$.
-
-By iteratively applying the exchange argument, any optimal solution $O$ can be transformed into the greedy solution $G$ while maintaining total priority. Therefore, $G$ is optimal. $\qed$
+If $i$ is in $O$ at some slot $t_o < t_g$, slide it right to $t_g$ without breaking feasibility. If $i$ is not in $O$, then slot $t_g$ in $O$ holds some packet $j$ with $w_j \le w_i$. Replacing $j$ by $i$ keeps feasibility and does not reduce total weight. Repeating this exchange for all packets transforms $O$ into the greedy schedule without lowering the objective, so the greedy schedule is optimal.
 \end{proof}
 
-\textbf{Key Insight:} The unit-time constraint is essential for this greedy algorithm's optimality. The general weighted scheduling problem (arbitrary processing times) is NP-hard \cite{garey1979computers}. By restricting to unit-time jobs, we transform an intractable problem into one admitting a polynomial-time optimal solution.
+\subsection{Domain Explanation}
+
+Each slot is a transmission window, and $d_i$ is the last acceptable window for packet $i$. Handling packets in order of priority and placing them as late as possible guarantees all scheduled packets meet their deadlines while maximizing total delivered priority.
 
 \section{Medical Image Histogram Analysis}
 \label{sec:divide}
@@ -411,11 +365,11 @@ Experiments were conducted on a system with the following specifications:
 
 \subsubsection{Test Data Generation}
 
-\textbf{Packet Scheduling:} Generated random unit-time test cases with:
+\textbf{Packet Scheduling:} Generated random instances with:
 \begin{itemize}
-    \item Processing time: $t_i = 1$ for all packets (unit-time constraint)
-    \item Deadlines: uniform random in $[1, n]$
-    \item Priorities: uniform random in $[1, 100]$
+    \item All packets have unit processing time $t_i = 1$
+    \item Deadlines $d_i$ drawn uniformly from $[1, D]$ with $D = n$
+    \item Priorities $w_i$ drawn uniformly from $[1, 100]$
 \end{itemize}
 
 \textbf{Histogram Analysis:} Generated synthetic histograms with:
@@ -548,7 +502,7 @@ Divide-and-conquer histogram analysis has the same asymptotic complexity as brut
 This paper presents two practical algorithmic solutions with rigorous theoretical analysis and empirical validation:
 
 \begin{enumerate}
-    \item \textbf{Network Packet Scheduling:} An optimal greedy algorithm for unit-time jobs that runs in $O(n^2)$ time (naive implementation) or $O(n \log n)$ with Union-Find optimization, applicable to real-time control plane QoS management in SDN networks.
+    \item \textbf{Network Packet Scheduling:} An optimal greedy algorithm for unit-time jobs that runs in $O(n \log n)$ time with Union-Find optimization (or $O(n^2)$ in naive implementation), applicable to real-time control plane QoS management in SDN networks.
     
     \item \textbf{Medical Image Histogram Analysis:} A divide-and-conquer algorithm of complexity $O(n)$ with a formal correctness proof, which helps in automatic threshold selection in CAD systems.
 \end{enumerate}
@@ -668,14 +622,18 @@ This project utilized Large Language Models (LLMs). Complete disclosure follows:
 
 \begin{itemize}
     \item \textbf{Primary Tool:} Claude Sonnet 4.5 (Github Copilot)
-    \item \textbf{Purpose:} Documentation
+    \item \textbf{Purpose:} Documentation formatting, LaTeX typesetting, and algorithm analysis
 \end{itemize}
 
 \subsection{Prompts and Results}
 
-\textit{Prompt:} ``Report needs to be typeset using LaTeX. Follow the structure of a publishable conference or journal article. Use the template for IEEE conference. Add the code to validate the running time in an appendix.''
+\textit{Prompt 1:} ``Report needs to be typeset using LaTeX. Follow the structure of a publishable conference or journal article. Use the template for IEEE conference. Add the code to validate the running time in an appendix.''
 
 \textit{Result:} The LLM converted the documentation to IEEE conference paper format with proper sections, mathematical notation, algorithm pseudocode, and bibliography.
+
+\textit{Prompt 2:} ``The greedy algorithm must be provably optimal. The current density-based approach is not optimal for general weighted scheduling. Switch to unit-time scheduling with latest-slot assignment.''
+
+\textit{Result:} The LLM helped reformulate the problem to use the unit-time constraint ($t_i = 1$ for all jobs), which enables an optimal greedy solution via latest-slot assignment. This approach is provably optimal using an exchange argument, unlike the NP-hard general weighted scheduling problem.
 
 
 \section{Source Code}
@@ -685,100 +643,54 @@ The complete source code is available at: \href{https://github.com/anayy09/AoA-P
 
 % \onecolumn
 
-\subsection{Greedy Packet Scheduling Implementation}
+\subsection{Greedy Unit-Time Packet Scheduling Implementation}
 
-\begin{lstlisting}[language=python, caption={Greedy packet scheduling algorithm implementation}, label={lst:greedy}]
-import time
-import json
+\begin{lstlisting}[language=python, caption={Greedy unit-time packet scheduling implementation}, label={lst:greedy}]
 from typing import List, Tuple
-import random
 
-class Packet:
-    """Represents a unit-time network packet"""
-    def __init__(self, packet_id: int, deadline: int, 
-                 priority: int):
-        self.id = packet_id
-        self.deadline = deadline
-        self.priority = priority
-        self.transmission_time = 1  # UNIT TIME
-
-def greedy_packet_scheduling(packets: List[Packet]) 
-        -> Tuple[List[Packet], int, float]:
+def schedule_packets_unit_time(deadlines: List[int], 
+        weights: List[float]) -> Tuple[float, List[int]]:
     """
-    Optimal greedy algorithm for unit-time scheduling
+    Optimal greedy algorithm for unit-time scheduling.
     Time Complexity: O(n^2) naive, O(n log n) with DSU
     """
-    start_time = time.perf_counter()
-    
-    if not packets:
-        return [], 0, time.perf_counter() - start_time
-    
-    # Sort by priority (descending)
-    sorted_packets = sorted(packets, 
-                           key=lambda p: p.priority, 
-                           reverse=True)
-    
-    # Initialize slot array
-    max_deadline = max(p.deadline for p in packets)
-    slots = [None] * (max_deadline + 1)
-    
-    scheduled = []
-    total_priority = 0
-    
-    # Latest-slot assignment
-    for packet in sorted_packets:
-        # Find latest free slot <= deadline
-        slot_found = None
-        for t in range(packet.deadline, 0, -1):
-            if slots[t] is None:
-                slot_found = t
-                break
-        
-        if slot_found is not None:
-            slots[slot_found] = packet
-            scheduled.append(packet)
-            total_priority += packet.priority
-    
-    execution_time = time.perf_counter() - start_time
-    return scheduled, total_priority, execution_time
+    n = len(deadlines)
+    if n == 0:
+        return 0.0, []
 
-def run_experiments(sizes: List[int], trials: int = 5):
-    """Run experiments with different input sizes"""
-    results = {
-        "algorithm": "Greedy Unit-Time Packet Scheduling",
-        "complexity": "O(n^2) naive, O(n log n) with DSU",
-        "experiments": []
-    }
+    # Sort packets by weight (descending)
+    packets = list(range(n))
+    packets.sort(key=lambda i: weights[i], reverse=True)
+
+    D = max(deadlines)
+    slot = [-1] * (D + 1)  # slots 1..D
+    total = 0.0
+
+    # Latest-slot assignment
+    for i in packets:
+        d = min(deadlines[i], D)
+        t = d
+        # Search backwards for free slot
+        while t >= 1 and slot[t] != -1:
+            t -= 1
+        if t >= 1:
+            slot[t] = i
+            total += weights[i]
+
+    return total, slot[1:]
+
+def generate_test_case(n: int, seed: int = None) 
+        -> Tuple[List[int], List[float]]:
+    """Generate random unit-time scheduling instance"""
+    import random
+    if seed is not None:
+        random.seed(seed)
     
-    for n in sizes:
-        size_results = {
-            "input_size": n,
-            "trials": []
-        }
-        
-        for trial in range(trials):
-            packets = generate_test_case(n, seed=trial*n)
-            scheduled, total_priority, exec_time = 
-                greedy_packet_scheduling(packets)
-            
-            trial_result = {
-                "trial": trial + 1,
-                "total_packets": n,
-                "scheduled_packets": len(scheduled),
-                "total_priority": total_priority,
-                "execution_time_ms": exec_time * 1000
-            }
-            size_results["trials"].append(trial_result)
-        
-        # Calculate averages
-        avg_exec_time = sum(t["execution_time_ms"] 
-            for t in size_results["trials"]) / trials
-        
-        size_results["average_execution_time_ms"] = 
-            avg_exec_time
-        results["experiments"].append(size_results)
+    # All packets have t_i = 1 (unit-time)
+    deadlines = [random.randint(1, n) for _ in range(n)]
+    weights = [random.uniform(1, 100) for _ in range(n)]
     
-    return results
+    return deadlines, weights
 \end{lstlisting}
 
 \subsection{Divide-and-Conquer Histogram Analysis}
